@@ -1,0 +1,9 @@
+# Game Domain Services
+
+services:
+    app.command_handler.game:
+        class: App\Game\Application\CommandHandler\AbstractGameHandler
+        abstract: true
+        public: false
+        arguments:
+            - '@app.repository.game'
