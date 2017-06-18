@@ -3,15 +3,15 @@
 namespace App\Game\Application\CommandHandler;
 
 use App\Game\Application\Command\GameStart;
-use App\Game\Domain\Game;
+use App\Game\Domain\GameRoot;
 use Broadway\CommandHandling\SimpleCommandHandler;
 
-class StartGameCommandHandler extends SimpleCommandHandler
+class StartGameCommandHandler extends AbstractGameHandler
 {
     public function handleStartGameCommand(GameStart $command)
     {
-        $game = Game::create($command->id());
+        $game = GameRoot::create($command->id());
 
-//        $this->
+        $this->save($game);
     }
 }

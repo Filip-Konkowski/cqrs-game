@@ -3,7 +3,7 @@
 namespace App\Model;
 
 use App\Assert\Assert;
-use App\Exception\AssertionFailedException;
+use Assert\AssertionFailedException;
 
 abstract class StringValueObject implements Stringable, Equatable, ValueObject
 {
@@ -17,7 +17,7 @@ abstract class StringValueObject implements Stringable, Equatable, ValueObject
     /**
      * @param string $value
      *
-     * @throws AssertionFailedException
+     * @throws \Exception
      */
     protected function __construct($value)
     {

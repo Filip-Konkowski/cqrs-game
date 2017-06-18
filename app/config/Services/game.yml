@@ -1,9 +1,35 @@
 # Game Domain Services
 
 services:
+    app.command.create.game:
+        class: App\Command\StartGameCommand
+    tags:
+        - { name: 'console.command' }
+    arguments:
+        - '@broadway.command_handling.command_bus'
+        - '@app.repository.game'
+
+    app.factory.aggregate:
+        class: Broadway\EventSourcing\AggregateFactory\PublicConstructorAggregateFactory
+
     app.command_handler.game:
         class: App\Game\Application\CommandHandler\AbstractGameHandler
         abstract: true
         public: false
         arguments:
             - '@app.repository.game'
+
+    # Write Model Repository
+    app.repository.game:
+        class: App\Game\Doctrine\DoctrineGameRepository
+        arguments:
+            - '@broadway.event.store'
+            - '@broadway.event_handler.event_bus'
+            - '@app.factory.aggregate'
+            - '@broadway.metadata_enriching_event_stream_decorator'
+            - '@broadway.uuid.generator'
+
+    # Read Model Repository
+    app.read.model.repository.game:
+      class: App\Game\Doctrine\DoctrineGameRepository
+      ar

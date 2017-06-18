@@ -14,7 +14,7 @@ use App\CombatReport;
 use App\Game\Event\GameStarted;
 use Broadway\EventSourcing\EventSourcedAggregateRoot;
 
-class Game extends EventSourcedAggregateRoot
+class GameRoot extends EventSourcedAggregateRoot
 {
     private $id;
     /**
@@ -35,7 +35,7 @@ class Game extends EventSourcedAggregateRoot
 
     public static function create(GameId $gameId)
     {
-        $game = new Game($gameId);
+        $game = new GameRoot($gameId);
 
         $game->apply(new GameStarted($gameId));
     }
